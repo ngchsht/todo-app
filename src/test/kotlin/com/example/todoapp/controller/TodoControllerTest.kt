@@ -2,6 +2,8 @@ package com.example.todoapp.controller
 
 import com.example.todoapp.model.Task
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.database.rider.core.api.dataset.DataSet
+import com.github.database.rider.junit5.api.DBRider
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -13,10 +15,14 @@ import kotlin.math.log
 
 
 @SpringBootTest
+@DBRider
 class TodoControllerTest {
     val restTemplate: RestTemplate = RestTemplateBuilder().build()
 
     @Test
+    @DataSet(
+            value=["task.yml"]
+    )
     fun `Todoリストが返却されること`() {
         val expectedTask = Task(1, "first task", false)
 

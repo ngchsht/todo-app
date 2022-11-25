@@ -15,7 +15,6 @@ class TodoServiceImpl: TodoServiceInterface{
     lateinit var todoRepository: TodoRepositoryInterface
 
     override fun getTodoList(): ArrayList<Task> {
-//        return ArrayList(todoRepository.getAllTasks())
         return todoRepository.getAllTasks().toCollection(ArrayList())
     }
 }

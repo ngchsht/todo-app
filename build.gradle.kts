@@ -23,6 +23,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.flywaydb:flyway-core:9.8.3")
 	implementation("org.postgresql:postgresql")
+	testImplementation("com.github.database-rider:rider-core")
+	testImplementation("com.github.database-rider:rider-junit5:1.35.0")
 	testImplementation("com.fasterxml.jackson.core:jackson-databind")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
