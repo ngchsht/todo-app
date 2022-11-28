@@ -1,23 +1,26 @@
 package com.example.todoapp.controller
 
+import com.example.todoapp.model.CreateTaskBody
 import com.example.todoapp.model.Task
 import com.example.todoapp.service.TodoServiceInterface
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/tasks")
 class TodoController {
-    @GetMapping("/")
-    fun test(): String {
-        return "hello, world.";
-    }
-
     @Autowired
     lateinit var todoService: TodoServiceInterface
 
-    @GetMapping("/tasks")
+    @GetMapping
     fun getTaskList(): ArrayList<Task> {
         return todoService.getTodoList()
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createTask(@RequestBody requestBody: CreateTaskBody): Task {
+        return todoService.createTodo(requestBody.title)
     }
 }

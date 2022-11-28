@@ -5,3 +5,7 @@ data class Task(
     val title: String,
     val completed: Boolean
 )
+
+data class CreateTaskBody(
+    val title: String
+)

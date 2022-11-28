@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 
 interface TodoServiceInterface {
     fun getTodoList(): ArrayList<Task>
+    fun createTodo(title: String): Task
 }
 
 @Service
@@ -16,5 +17,9 @@ class TodoServiceImpl: TodoServiceInterface{
 
     override fun getTodoList(): ArrayList<Task> {
         return todoRepository.getAllTasks().toCollection(ArrayList())
+    }
+
+    override fun createTodo(title: String): Task {
+        return todoRepository.createTask(title)
     }
 }

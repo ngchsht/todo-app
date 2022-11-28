@@ -9,6 +9,7 @@ import java.sql.ResultSet
 
 interface TodoRepositoryInterface {
     fun getAllTasks(): MutableList<Task>
+    fun createTask(title: String): Task
 }
 
 @Repository
@@ -18,7 +19,7 @@ class TodoRepositoryImpl: TodoRepositoryInterface {
 
     override fun getAllTasks(): MutableList<Task> {
         return jdbcTemplate.query(
-                """select id, title, completed from task"""
+        "SELECT id, title, completed FROM task"
         ) { rs: ResultSet, _:Int ->
             Task(
                 rs.getInt("id"),
@@ -26,5 +27,17 @@ class TodoRepositoryImpl: TodoRepositoryInterface {
                 rs.getBoolean("completed")
             )
         }
+    }
+
+    override fun createTask(title: String): Task {
+        return jdbcTemplate.query(
+        "INSERT INTO task (title) VALUES ('${title}') RETURNING id, title, completed;"
+        ) { rs: ResultSet, _:Int ->
+            Task(
+                rs.getInt("id"),
+                rs.getString("title"),
+                rs.getBoolean("completed")
+            )
+        }[0]
     }
 }
