@@ -64,7 +64,23 @@ class TodoControllerTest {
         val updateTaskBody: UpdateTaskBody = UpdateTaskBody(true)
         val entity: HttpEntity<UpdateTaskBody> = HttpEntity(updateTaskBody, headers)
 
-        val response = restTemplate.exchange("http://localhost:8080/tasks/${id}", HttpMethod.PUT, entity, Task::class.java)
+        val response = restTemplate.exchange("http://localhost:8080/tasks/${id}", HttpMethod.PUT, entity, Void::class.java)
+
+        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.NO_CONTENT)
+    }
+
+    @Test
+    @DataSet(
+            value=["task.yml"]
+    )
+    fun `Todoが削除されること`() {
+        val taskListResponse = restTemplate.exchange("http://localhost:8080/tasks", HttpMethod.GET, null, Array<Task>::class.java)
+        val taskListResponseBody: Array<Task> = taskListResponse.body!!
+        val id = taskListResponseBody[0].id
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.APPLICATION_JSON
+
+        val response = restTemplate.exchange("http://localhost:8080/tasks/${id}", HttpMethod.DELETE, null, Void::class.java)
 
         Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.NO_CONTENT)
     }

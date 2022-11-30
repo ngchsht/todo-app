@@ -78,13 +78,20 @@ paths:
         '204':
           description: |-
             204 response
-          content:
-            application/json:
-              examples:
-                example1:
-                  value:
-                    {
-                      "id": 1,
-                      "title": "1st task",
-                      "completed": true,
-                    }
+    delete:
+      summary: "タスクの削除"
+      tags: ["tasks"]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+            example:
+              id: 1
+      responses:
+        '204':
+          description: |-
+            204 response

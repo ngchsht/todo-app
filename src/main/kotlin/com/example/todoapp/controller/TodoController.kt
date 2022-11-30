@@ -31,4 +31,11 @@ class TodoController {
         val succeeded = todoService.updateTodo(id, requestBody.completed)
         //TODO: 異常系
     }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteTask(@PathVariable("id") id: Int) {
+        val succeeded = todoService.deleteTodo(id)
+        //TODO: 異常系
+    }
 }
