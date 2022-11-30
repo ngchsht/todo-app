@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service
 interface TodoServiceInterface {
     fun getTodoList(): ArrayList<Task>
     fun createTodo(title: String): Task
+    fun updateTodo(id: Int, completed: Boolean): Boolean
 }
 
 @Service
@@ -21,5 +22,9 @@ class TodoServiceImpl: TodoServiceInterface{
 
     override fun createTodo(title: String): Task {
         return todoRepository.createTask(title)
+    }
+
+    override fun updateTodo(id: Int, completed: Boolean): Boolean {
+        return todoRepository.updateTask(id, completed)
     }
 }
