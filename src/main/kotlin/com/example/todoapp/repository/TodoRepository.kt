@@ -20,7 +20,7 @@ class TodoRepositoryImpl: TodoRepositoryInterface {
 
     override fun getAllTasks(): MutableList<Task> {
         return jdbcTemplate.query(
-        "SELECT id, title, completed FROM task"
+        "SELECT id, title, completed FROM task ORDER BY id"
         ) { rs: ResultSet, _:Int ->
             Task(
                 rs.getInt("id"),
