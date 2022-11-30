@@ -9,3 +9,7 @@ data class Task(
 data class CreateTaskBody(
     val title: String
 )
+
+data class UpdateTaskBody(
+    val completed: Boolean
+)

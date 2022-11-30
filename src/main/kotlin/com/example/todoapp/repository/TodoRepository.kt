@@ -10,6 +10,7 @@ import java.sql.ResultSet
 interface TodoRepositoryInterface {
     fun getAllTasks(): MutableList<Task>
     fun createTask(title: String): Task
+    fun updateTask(id: Int, completed: Boolean): Boolean
 }
 
 @Repository
@@ -19,7 +20,7 @@ class TodoRepositoryImpl: TodoRepositoryInterface {
 
     override fun getAllTasks(): MutableList<Task> {
         return jdbcTemplate.query(
-        "SELECT id, title, completed FROM task"
+        "SELECT id, title, completed FROM task ORDER BY id"
         ) { rs: ResultSet, _:Int ->
             Task(
                 rs.getInt("id"),
@@ -39,5 +40,12 @@ class TodoRepositoryImpl: TodoRepositoryInterface {
                 rs.getBoolean("completed")
             )
         }[0]
+    }
+
+    override fun updateTask(id: Int, completed: Boolean): Boolean {
+        val updatedRowCount = jdbcTemplate.update(
+        "UPDATE task SET completed = $completed WHERE id = $id;"
+        )
+        return updatedRowCount > 0
     }
 }

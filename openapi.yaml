@@ -60,3 +60,31 @@ paths:
                       "title": "1st task",
                       "completed": false,
                     }
+  /tasks/{id}:
+    put:
+      summary: "タスクの更新"
+      tags: ["tasks"]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                completed:
+                  type: boolean
+            example:
+              completed: true
+      responses:
+        '204':
+          description: |-
+            204 response
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    {
+                      "id": 1,
+                      "title": "1st task",
+                      "completed": true,
+                    }
