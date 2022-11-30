@@ -11,6 +11,7 @@ interface TodoRepositoryInterface {
     fun getAllTasks(): MutableList<Task>
     fun createTask(title: String): Task
     fun updateTask(id: Int, completed: Boolean): Boolean
+    fun deleteTask(id: Int): Boolean
 }
 
 @Repository
@@ -46,6 +47,13 @@ class TodoRepositoryImpl: TodoRepositoryInterface {
         val updatedRowCount = jdbcTemplate.update(
         "UPDATE task SET completed = $completed WHERE id = $id;"
         )
-        return updatedRowCount > 0
+        return updatedRowCount == 1
+    }
+
+    override fun deleteTask(id: Int): Boolean {
+        val deletedRowCount = jdbcTemplate.update(
+        "DELETE FROM task WHERE id = $id;"
+        )
+        return deletedRowCount == 1
     }
 }

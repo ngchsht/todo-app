@@ -9,6 +9,7 @@ interface TodoServiceInterface {
     fun getTodoList(): ArrayList<Task>
     fun createTodo(title: String): Task
     fun updateTodo(id: Int, completed: Boolean): Boolean
+    fun deleteTodo(id: Int): Boolean
 }
 
 @Service
@@ -26,5 +27,9 @@ class TodoServiceImpl: TodoServiceInterface{
 
     override fun updateTodo(id: Int, completed: Boolean): Boolean {
         return todoRepository.updateTask(id, completed)
+    }
+
+    override fun deleteTodo(id: Int): Boolean {
+        return todoRepository.deleteTask(id)
     }
 }
