@@ -1,0 +1,62 @@
+openapi: "3.0.0"
+info:
+  title: Task API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+tags:
+  - name: "tasks"
+    description: "task list"
+paths:
+  /tasks:
+    get:
+      summary: "タスクリストの取得"
+      tags: ["tasks"]
+      responses:
+        '200':
+          description: |-
+            200 response
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    [
+                      {
+                        "id": 1,
+                        "title": "1st Task",
+                        "completed": false,
+                      },
+                      {
+                        "id": 2,
+                        "title": "2nd Task",
+                        "completed": false,
+                      },
+                    ]
+    post:
+      summary: "タスクの作成"
+      tags: ["tasks"]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+            example:
+              title: "1st task"
+      responses:
+        '201':
+          description: |-
+            201 response
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    {
+                      "id": 1,
+                      "title": "1st task",
+                      "completed": false,
+                    }

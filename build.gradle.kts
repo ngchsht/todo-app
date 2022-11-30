@@ -17,9 +17,15 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.flywaydb:flyway-core:9.8.3")
+	implementation("org.postgresql:postgresql")
+	testImplementation("com.github.database-rider:rider-core")
+	testImplementation("com.github.database-rider:rider-junit5:1.35.0")
+	testImplementation("com.fasterxml.jackson.core:jackson-databind")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
